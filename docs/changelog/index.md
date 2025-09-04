@@ -1,5 +1,21 @@
 # Changelog
 
+## 2.1.0
+- minor bug and security fixes
+- updated dependencies to latest versions (GO, PHP, Node)
+- StartingPoint
+    - fixed a bug with bad handling of a missing RabbitMQ connection
+- MultiCounter
+    - updated database query for better performance
+- Frontend
+    - build has been replaced from vue-cli to vite
+
+### Environment variable changes
+- All backend services
+    - added **TZ** for specifying timezone
+- MultiCounter
+    - added **APP_RUN_CALLBACK_TOPOLOGY** for enabling/disabling run system callback topology
+
 ## 2.0.1
 - minor bug and security fixes
 
@@ -7,35 +23,35 @@
 
 ### Environment variable changes
 - Limiter
-  - **LOGSTASH_HOST** & **LOGSTASH_PORT** replaced by **UDP_LOGGER_URL**
+    - **LOGSTASH_HOST** & **LOGSTASH_PORT** replaced by **UDP_LOGGER_URL**
 - StartingPoint
-  - **RABBIT_COUNTER_QUEUE_DURABLE** & **RABBIT_QUEUE_DURABLE** replaced by **RABBITMQ_DSN** 
-  - removed **ORCHESTY_API_KEY**
+    - **RABBIT_COUNTER_QUEUE_DURABLE** & **RABBIT_QUEUE_DURABLE** replaced by **RABBITMQ_DSN**
+    - removed **ORCHESTY_API_KEY**
 - PhpSdk
-  - removed **BACKEND_DSN**
-  - removed **STARTING_POINT_DSN**
-  - removed **RABBITMQ_DSN**
+    - removed **BACKEND_DSN**
+    - removed **STARTING_POINT_DSN**
+    - removed **RABBITMQ_DSN**
 - NodeSdk
-  - added **WORKER_API_HOST**
-  - removed **UDP_LOGGER_DSN**
-  - removed **METRICS_DSN**
-  - removed **MONGODB_DSN**
+    - added **WORKER_API_HOST**
+    - removed **UDP_LOGGER_DSN**
+    - removed **METRICS_DSN**
+    - removed **MONGODB_DSN**
 - MultiCounter
-  - **RABBIT_HOST** replaced by **RABBITMQ_DSN**
+    - **RABBIT_HOST** replaced by **RABBITMQ_DSN**
 - Backend
-  - removed **ORCHESTY_API_KEY**
+    - removed **ORCHESTY_API_KEY**
 - CronApi
-  - removed **ORCHESTY_API_KEY**
+    - removed **ORCHESTY_API_KEY**
 
 ### Sdk
-- No longer has required database dependency -> db access has been replaced by WorkerApi  
-(MongoClient is still existing but no longer created & registered into container by default)  
-- Changed CurlSender result code  
+- No longer has the required database dependency -> db access has been replaced by WorkerApi  
+  (MongoClient is still existing but no longer created & registered into container by default)
+- Changed CurlSender result code
 
 Method send(..., codes) accepts `codes` with different setting, if not specified, given range is considered
 success.  
 For more concrete settings, you can provide an object containing **success**, **repeat** (will try again later),
-**stopAndFailed** (sends message into trash as failed) ranges.
+**stopAndFailed** (sends a message into trash as failed) ranges.
 
 Example ranges:
 ```
@@ -50,7 +66,7 @@ Sdk provides a set of pre-defined settings:
 **repeatOnErrorRanges** (repeats on any error )  
 **continueOnNotFoundRanges** (consider 404 as success)  
 **continueOnErrorRanges** (consider any 4xx as success)  
-and a **defaultRanges** (repeats only 408 & 5xx):  
+and a **defaultRanges** (repeats only 408 & 5xx):
 ```
 { 
     success: '<300',
@@ -61,18 +77,18 @@ and a **defaultRanges** (repeats only 408 & 5xx):
 
 ### UI
 - Communication between services (Sdk, Limiter, StartingPoint, WorkerApi, Bridge, ...)
-is now protected by ApiToken.  
-Token can be managed via UI.
+  is now protected by ApiToken.  
+  Token can be managed via UI.
 - Trash message can be sent to newer topology (must be the same topology of a newer version)
 - Topology can be started even when disabled (works only from UI)
 - StartingPoints of topology have new settings:
-  - enable/disable
-  - visible url for REST point
-  - timer for Cron point
+    - enable/disable
+    - visible url for REST point
+    - timer for Cron point
 
 
 ### Limiter
-Complete overwrite of Limiter service for optimization.  
+Complete overwrite of Limiter service for optimization.
 
 
 #### Removed services
@@ -82,7 +98,7 @@ Complete overwrite of Limiter service for optimization.
 
 ### Sdk
 - Removed ILimitedApplication  
-[Replaced by Application form](../documentation/limiter) within UI to set limits for nodes belonging to given application.
+  [Replaced by Application form](../documentation/limiter) within UI to set limits for nodes belonging to given application.
 
 
 ### Connectors
