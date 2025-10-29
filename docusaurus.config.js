@@ -8,7 +8,6 @@ module.exports = {
   url: 'https://www.hanaboso.com',
   baseUrl: '/',
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
   organizationName: 'Orchesty/orchesty', // Usually your GitHub org/username.
   projectName: 'Orchesty', // Usually your repo name.
@@ -78,5 +77,10 @@ module.exports = {
   ],
   customFields: {
     version: ''
+  },
+  markdown: {
+      hooks: {
+          onBrokenMarkdownLinks: 'warn',
+      }
   }
 };
